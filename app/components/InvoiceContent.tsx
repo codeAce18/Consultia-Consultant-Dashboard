@@ -85,7 +85,9 @@ const InvoiceContent = () => {
 
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
 
-  const tabs = ['All Invoices', 'Paid Invoices', 'Pending Invoices', 'Declined Invoices'];
+  const tabs: ['All Invoices', 'Paid Invoices', 'Pending Invoices', 'Declined Invoices'] = [
+    'All Invoices', 'Paid Invoices', 'Pending Invoices', 'Declined Invoices'
+  ];
 
   const clients: Client[] = [
     {
@@ -195,15 +197,15 @@ const InvoiceContent = () => {
 
   const getFilteredInvoices = () => {
     const currentTab = tabs[tabValue];
-    
+  
     if (currentTab === 'All Invoices') return invoices;
-    
+  
     const statusMap = {
       'Paid Invoices': 'Paid',
       'Pending Invoices': 'Pending',
       'Declined Invoices': 'Declined'
     };
-
+  
     return invoices.filter(invoice => invoice.status === statusMap[currentTab]);
   };
 
