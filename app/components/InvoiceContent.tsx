@@ -37,8 +37,9 @@ import {
 
   IconButton, 
   Menu, 
-  TablePagination
 } from '@mui/material';
+
+import { TablePagination } from '@mui/material';
 
 import Avatar from '@mui/material/Avatar';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -90,6 +91,7 @@ const InvoiceContent = () => {
   const [anchorEls, setAnchorEls] = React.useState<Record<string | number, HTMLElement | null>>({});
   const [tabValue, setTabValue] = useState(0);
   const [page, setPage] = useState(0);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [isOverlayVisible, setIsOverlayVisible] = useState<boolean>(false);
   const [isInvoiceCreated, setIsInvoiceCreated] = useState<boolean>(false);
@@ -269,17 +271,19 @@ const InvoiceContent = () => {
   };
 
 
-  const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement> | null, 
-    newPage: number
-  ) => {
-    setPage(newPage);
-  };
-  
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0); // Reset to first page after changing rows per page
-  };
+// // Handle page change
+// const handleChangePage = (
+//   event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, 
+//   newPage: number
+// ) => {
+//   setPage(newPage);
+// };
+
+// // Handle rows per page change
+// const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLSelectElement>) => {
+//   setRowsPerPage(parseInt(event.target.value, 10)); // Set rows per page
+//   setPage(0); // Reset to first page after changing rows per page
+// };
 
   const handleClientChange = (value: string) => {
     const client = clients.find(c => c.id === value) || null;
@@ -661,15 +665,15 @@ const handleSendInvoice = (): void => {
                 })}
               </TableBody>
             </Table>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={filteredInvoices.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}  
-              onRowsPerPageChange={handleChangeRowsPerPage} 
-            />
+            {/* <TablePagination
+              rowsPerPageOptions={[5, 10, 25]} // Define options for rows per page
+              component="div" // Specify that it's a div container
+              count={filteredInvoices.length} // Total number of rows to paginate
+              rowsPerPage={rowsPerPage} // Number of rows displayed per page
+              page={page} // Current page number
+              onPageChange={handleChangePage}  // Correctly typed page change handler
+              onRowsPerPageChange={handleChangeRowsPerPage}  // Correctly typed rows per page change handler
+            /> */}
           </TableContainer>
         </div>
         ) :
