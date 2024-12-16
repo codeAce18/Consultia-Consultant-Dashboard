@@ -45,7 +45,7 @@ const Login = () => {
   
         // Redirect to dashboard with token
         // Replace with your actual dashboard URL
-        window.location.href = `https://consultia-client-dashboard2.vercel.app?token=${token}`;
+        window.location.href = `https://consultia-consultant-dashboard.vercel.app?token=${token}`;
       } else {
         // Handle empty credentials
         alert('Please enter both email and password');
