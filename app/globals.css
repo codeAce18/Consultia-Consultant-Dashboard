@@ -2,26 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+body {
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+
+
+/* styles/scrollbar.css */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px;  /* Width of the scrollbar */
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #CFCDEC; /* Background of the scrollbar track */
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #CFCDEC; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners */
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #CFCDEC; /* Color of the scrollbar thumb on hover */
+}
+
+/* For Firefox */
+.scrollbar-thin {
+  scrollbar-width: thin; /* Set the scrollbar width */
+  scrollbar-color: #CFCDEC; /* Color of the scrollbar thumb and track */
+}
+
+
+
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.animate-slide-in {
+  animation: slideIn 0.5s ease-out forwards;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@layer base {
+  :root {
+    --radius: 0.5rem;
   }
 }
