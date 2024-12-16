@@ -538,6 +538,7 @@ const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLSelectElement>) =>
                       <TableCell><h1 className="text-[#A3A2AB] text-[16px] leading-[24px] font-medium">{invoice.id}</h1></TableCell>
                       <TableCell>
                         <div className="flex items-center space-x-2">
+                          <Avatar 
                             width={26}
                             height={26}
                             src={invoice.client.avatar} 
