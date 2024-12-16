@@ -338,7 +338,7 @@ const JobOrderRegistryTable: React.FC = () => {
   };
 
 
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedJob, setSelectedJob] = useState<JobOrder | null>(null);
 
   // const handleView = (job: JobOrder) => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Send, FileText } from 'lucide-react';
+import {Send, FileText } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";

@@ -1,4 +1,4 @@
-import React, { useState, DragEvent, ChangeEvent } from 'react';
+import React, { useState } from 'react';
 import { 
   Sheet, 
   SheetContent, 
@@ -70,6 +70,7 @@ export const CreateNewProjectSheet: React.FC<CreateNewProjectSheetProps> = ({
   const [isClientOnConsultia, setIsClientOnConsultia] = useState<'yes' | 'no' | null>(null);
   const [projectStartDate, setProjectStartDate] = useState<Date | undefined>(undefined);
   const [projectDueDate, setProjectDueDate] = useState<Date | undefined>(undefined);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [clientIdentifier, setClientIdentifier] = useState<string>('');
   const [projectCategory, setProjectCategory] = useState<Category | undefined>(undefined);

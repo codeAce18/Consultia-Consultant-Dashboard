@@ -331,12 +331,13 @@ const InvoiceContent = () => {
   };
 
 
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSendInvoice = (emailDetails) => {
     // Here you can add any additional logic for sending the invoice
     setIsInvoiceSent(true);
   };
-
+  
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleResetInvoice = () => {
     setIsInvoiceCreated(false);
     setIsInvoiceSent(false);

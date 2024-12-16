@@ -109,6 +109,7 @@ const ProjectManagementContent: React.FC = () => {
 
   const EditProjectView: React.FC = () => {
     // Create local state for editing project details
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [editedProject, setEditedProject] = useState(selectedProject);
 
  
@@ -193,7 +194,7 @@ const ProjectManagementContent: React.FC = () => {
                   <h1 className='text-[#A9A9AE] text-[16px] flex items-center gap-[30px] leading-[22.4px] font-normal'>Priority<span className='text-[#F87B24] bg-[#FAD9C2] p-[10px] rounded-[100px]'>{editedProject?.priority || ''}</span></h1>
                 </div>
                 <div  className='flex items-center  gap-[8px]'>
-                  <Image src={TimerClock} alt='TimerClock' />
+                  <Image src={timerClock} alt='timerClock' />
                   <h1 className='text-[#A9A9AE] text-[16px] flex items-center gap-[30px] leading-[22.4px] font-normal'>Due Date<span className='text-[#5B52B6]'>Sept 24,2024</span></h1>
                 </div>
                 <div  className='flex items-center  gap-[8px]'>
