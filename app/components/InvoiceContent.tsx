@@ -60,7 +60,7 @@ interface Client {
   phone: string;
 }
 const InvoiceContent = () => {
-  const [selectedInvoices, setSelectedInvoices] = useState([]);
+  const [selectedInvoices, setSelectedInvoices] = useState<string[]>([]);
   const [anchorEls, setAnchorEls] = useState({});
   const [tabValue, setTabValue] = useState(0);
   const [page, setPage] = useState(0);
@@ -211,7 +211,7 @@ const InvoiceContent = () => {
 
   const filteredInvoices = getFilteredInvoices();
 
-  const handleSelectAllClick = (event) => {
+  const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
       const newSelected = filteredInvoices.map((n) => n.id);
       setSelectedInvoices(newSelected);
