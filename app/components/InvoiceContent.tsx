@@ -82,6 +82,11 @@ interface InvoiceDetails {
 
 }
 
+interface EmailDetails {
+  email: string;
+  subject: string;
+  message: string;
+}
 const InvoiceContent = () => {
   const [selectedInvoices, setSelectedInvoices] = useState<string[]>([]);
   const [anchorEls, setAnchorEls] = React.useState<Record<string | number, HTMLElement | null>>({});
@@ -90,7 +95,7 @@ const InvoiceContent = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [isOverlayVisible, setIsOverlayVisible] = useState<boolean>(false);
   const [isInvoiceCreated, setIsInvoiceCreated] = useState<boolean>(false);
-  const [isInvoiceSent, setIsInvoiceSent] = useState<boolean>(false);
+  const [isInvoiceSent, setIsInvoiceSent] = React.useState<boolean>(false);
   const [isSendSheetOpen, setIsSendSheetOpen] = useState<boolean>(false);
   const [invoiceDetails, setInvoiceDetails] = useState<InvoiceDetails>({
     items: [],
@@ -352,18 +357,17 @@ const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLSelectElement>) =>
     }
   };
 
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleSendInvoice = (emailDetails) => {
-    // Here you can add any additional logic for sending the invoice
-    setIsInvoiceSent(true);
-  };
+const handleSendInvoice = (): void => {
+  // Here you can add any additional logic for sending the invoice
+  setIsInvoiceSent(true);
+};
   
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleResetInvoice = () => {
-    setIsInvoiceCreated(false);
-    setIsInvoiceSent(false);
-  };
+  // const handleResetInvoice = () => {
+  //   setIsInvoiceCreated(false);
+  //   setIsInvoiceSent(false);
+  // };
 
 
   const handleMenuOpen = (
