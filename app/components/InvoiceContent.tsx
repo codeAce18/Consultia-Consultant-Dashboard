@@ -53,15 +53,38 @@ import {
   SelectValue
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+
+
 interface Client {
   id: string;
   name: string;
   location: string;
   phone: string;
 }
+
+
+interface InvoiceItem {
+  description: string;
+  quantity: string;
+  unitPrice: string;
+  total: string;
+  cost: string;
+  hours: string;
+}
+
+interface InvoiceDetails {
+    items: InvoiceItem[];
+    clientName: string;
+    clientService: string;
+    invoiceNumber: string;
+    dateIssued: string;
+    dateDue: string;
+
+}
+
 const InvoiceContent = () => {
   const [selectedInvoices, setSelectedInvoices] = useState<string[]>([]);
-  const [anchorEls, setAnchorEls] = useState({});
+  const [anchorEls, setAnchorEls] = React.useState<Record<string | number, HTMLElement | null>>({});
   const [tabValue, setTabValue] = useState(0);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -69,18 +92,13 @@ const InvoiceContent = () => {
   const [isInvoiceCreated, setIsInvoiceCreated] = useState<boolean>(false);
   const [isInvoiceSent, setIsInvoiceSent] = useState<boolean>(false);
   const [isSendSheetOpen, setIsSendSheetOpen] = useState<boolean>(false);
-  const [invoiceDetails, setInvoiceDetails] = useState({
+  const [invoiceDetails, setInvoiceDetails] = useState<InvoiceDetails>({
+    items: [],
     clientName: '',
     clientService: '',
     invoiceNumber: '',
     dateIssued: '',
     dateDue: '',
-    items: [{
-      item: "Business strategy Consulting",
-      cost: "",
-      hours: "",
-      quantity: ""
-    }]
   });
 
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
@@ -242,19 +260,20 @@ const InvoiceContent = () => {
 
  
 
-  const handleTabChange = (index) => {
+  const handleTabChange = (index: number) => {
     setTabValue(index);
     setPage(0);
   };
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
+  const handleChangePage = (event: React.MouseEvent, newPage: number) => {
+  setPage(newPage);
+};
+
+const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  setRowsPerPage(parseInt(event.target.value, 10));
+  setPage(0);
+};
 
   const handleClientChange = (value: string) => {
     const client = clients.find(c => c.id === value) || null;
@@ -265,24 +284,22 @@ const InvoiceContent = () => {
     setIsOverlayVisible(!isOverlayVisible);
   };
 
+  const generateInvoiceNumber = (): string => {
+    // Example logic to generate an invoice number, e.g., based on current timestamp
+    return `INV-${new Date().getTime()}`;
+  };
+  
   const handleCreateInvoice = () => {
-    // Generate a unique invoice number
-    const generateInvoiceNumber = () => {
-      const prefix = 'INV';
-      const randomNumber = Math.floor(1000 + Math.random() * 9000);
-      return `${prefix}-${randomNumber}`;
-    };
-
-    // Set default invoice number and dates when creating invoice
-    setInvoiceDetails(prev => ({
+    setInvoiceDetails((prev) => ({
       ...prev,
       invoiceNumber: generateInvoiceNumber(),
       dateIssued: new Date().toLocaleDateString(),
-      dateDue: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString() // 30 days from now
+      dateDue: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString(), // 30 days from now
     }));
-    
-    setIsInvoiceCreated(true);
+  
+    setIsInvoiceCreated(true); 
   };
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
     setInvoiceDetails({
@@ -315,19 +332,22 @@ const InvoiceContent = () => {
     }, 0).toFixed(2);
   };
 
-  const addNewItem = () => {
-    setInvoiceDetails({
-      ...invoiceDetails,
-      items: [...invoiceDetails.items, { description: '', quantity: '', unitPrice: '', total: '' }]
-    });
+  const addNewItem = (): void => {
+    setInvoiceDetails((prev) => ({
+      ...prev,
+      items: [
+        ...prev.items,
+        { description: '', quantity: '', unitPrice: '', total: '', cost: '', hours: '' }, 
+      ],
+    }));
   };
 
-  const removeItem = (indexToRemove) => {
+  const removeItem = (indexToRemove: number): void => {
     // Prevent removing the last item
     if (invoiceDetails.items.length > 1) {
-      setInvoiceDetails(prev => ({
+      setInvoiceDetails((prev) => ({
         ...prev,
-        items: prev.items.filter((_, index) => index !== indexToRemove)
+        items: prev.items.filter((_, index) => index !== indexToRemove),
       }));
     }
   };
@@ -346,19 +366,23 @@ const InvoiceContent = () => {
   };
 
 
-  const handleMenuOpen = (event, id) => {
+  const handleMenuOpen = (
+    event: React.MouseEvent<HTMLElement>,
+    id: string | number
+  ): void => {
     setAnchorEls((prev) => ({ ...prev, [id]: event.currentTarget }));
   };
 
-  const handleMenuClose = (id) => {
-    setAnchorEls((prev) => {
-      const newAnchors = { ...prev };
-      delete newAnchors[id];
-      return newAnchors;
-    });
-  };
 
-  const handleDeleteClick = (id) => {
+ const handleMenuClose = (id: string | number): void => {
+  setAnchorEls((prev) => {
+    const newAnchors = { ...prev };
+    delete newAnchors[id];
+    return newAnchors;
+  });
+};
+
+  const handleDeleteClick = (id: string | number): void => {
     // Close the menu first
     handleMenuClose(id);
     // Then open the delete confirmation overlay
@@ -514,7 +538,6 @@ const InvoiceContent = () => {
                       <TableCell><h1 className="text-[#A3A2AB] text-[16px] leading-[24px] font-medium">{invoice.id}</h1></TableCell>
                       <TableCell>
                         <div className="flex items-center space-x-2">
-                          <Avatar 
                             width={26}
                             height={26}
                             src={invoice.client.avatar} 
