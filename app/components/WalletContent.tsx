@@ -92,8 +92,8 @@ const WalletContent = () => {
                             </div>
 
                             <div>
-                                <h1 className="text-[13px] leading-[19.5px] text-[#101828] font-semibold">Bankole Onafuwa</h1>
-                                <p className="text-[#41404B] text-[13px] leading-[19.5px] font-normal">Client</p>
+                                <h1 className="text-[13px] leading-[19.5px] text-[#101828] font-semibold">Dora Consulting</h1>
+                                <p className="text-[#41404B] text-[13px] leading-[19.5px] font-normal">Consultant</p>
                             </div>
                             
                             <div>

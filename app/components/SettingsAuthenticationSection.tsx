@@ -19,7 +19,7 @@ import {
 
 import {Button} from "@/components/ui/button";
 
-// import {InputOTP} from "@/components/ui/input-otp"
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
 import { Switch } from "@/components/ui/switch"
 
@@ -56,12 +56,17 @@ const SettingsAuthenticationSection = () => {
   const [isEmailOverlayOpen, setIsEmailOverlayOpen] = useState(false);
   const [isPasswordOverlayOpen, setIsPasswordOverlayOpen] = useState(false);
 
-  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const [emailOtp, setEmailOtp] = useState(["", "", "", "", "", ""]);
+  const [passwordOtp, setPasswordOtp] = useState(["", "", "", "", "", ""]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-    const newOtp = [...otp];
-    newOtp[index] = e.target.value; // Update the specific input field
-    setOtp(newOtp);
+  const handleEmailOtpChange = (newOtp: string) => {
+    const otpArray = newOtp.split('').slice(0, 6); 
+    setEmailOtp(otpArray);
+  };
+
+  const handlePasswordOtpChange = (newOtp: string) => {
+    const otpArray = newOtp.split('').slice(0, 6); 
+    setPasswordOtp(otpArray);
   };
 
   const handleVerifyEmail = () => {
@@ -82,8 +87,9 @@ const SettingsAuthenticationSection = () => {
     setValue("password", getValues("newPassword"));
     setIsEditingPassword(false);
     setIsPasswordOverlayOpen(false);
-    router.push("/account"); // Navigate to the account page
+    router.push("/login");
   };
+
 
 
   return (
@@ -146,7 +152,7 @@ const SettingsAuthenticationSection = () => {
                 onClick={handleVerifyEmail}
                 className="bg-[#5B52B6] text-white"
               >
-                Verify
+                Update Email
               </Button>
             )}
           </div>
@@ -202,49 +208,46 @@ const SettingsAuthenticationSection = () => {
                 onClick={handleVerifyPassword}
                 className="bg-[#5B52B6] text-white"
               >
-                Verify
+                Update Password
               </Button>
             )}
           </div>
         </form>
 
-        {/* Email Verification Dialog */}
         <Dialog open={isEmailOverlayOpen} onOpenChange={setIsEmailOverlayOpen}>
-          <DialogContent>
+          <DialogContent className="min-h-[400px]">
             <DialogHeader>
-              <DialogTitle>Verify Email</DialogTitle>
+              <DialogTitle className="text-[20px] pl-10">Enter verification code</DialogTitle>
+              <DialogTitle className="text-[15px] pl-10">The verification code has been sent to your email just now</DialogTitle>
             </DialogHeader>
-            <div className="space-y-4">
-              <FormField
-                name="otp"
-                render={() => (
-                  <FormItem>
-                    <FormLabel className="text-[14px] text-[#A9A9AE] leading-[21px] font-medium">
-                      OTP Code
-                    </FormLabel>
-
-                    {otp.map((digit, index) => (
-                      <Input
-                        key={index}
-                        value={digit}
-                        onChange={(e) => handleInputChange(e, index)} // Handle the change for each input
-                        className="otp-input"
-                        maxLength={1} // Each input should accept only one character
-                        type="text"
-                        autoFocus={index === 0} // Focus on the first input initially
-                      />
-                    ))}
-
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+            <FormField
+              name="otp"
+              render={() => (
+                <FormItem>
+                  <div className="flex items-center justify-center">
+                    <InputOTP
+                      maxLength={6}
+                      value={emailOtp.join('')} 
+                      onChange={handleEmailOtpChange} 
+                    >
+                      <InputOTPGroup className="flex gap-4 justify-center">
+                        {[...Array(6)].map((_, index) => (
+                          <InputOTPSlot key={index} index={index} className="w-12 h-12 
+                          border rounded-md text-center text-xl" />
+                        ))}
+                      </InputOTPGroup>
+                    </InputOTP>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <DialogFooter>
               <Button
                 type="button"
                 onClick={handleUpdateEmail}
-                className="w-full bg-[#5B52B6] text-white"
+                disabled={emailOtp.some((digit) => !digit)} 
+                className={`w-full text-white ${emailOtp.some((digit) => !digit) ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#5B52B6] cursor-pointer'}`}
               >
                 Update Email
               </Button>
@@ -254,33 +257,35 @@ const SettingsAuthenticationSection = () => {
 
         {/* Password Verification Dialog */}
         <Dialog open={isPasswordOverlayOpen} onOpenChange={setIsPasswordOverlayOpen}>
-          <DialogContent>
+          <DialogContent className="min-h-[400px]">
             <DialogHeader>
-              <DialogTitle>Verify Password</DialogTitle>
+              <DialogTitle className="text-[20px] pl-10">Enter verification code</DialogTitle>
+              <DialogTitle className="text-[15px] pl-10">The verification code has been sent to your email just now</DialogTitle>
             </DialogHeader>
-            <div className="space-y-4">
+            <div>
               <FormField
-                  name="otp"
-                  render={() => ( // No need to destructure 'field' since it's not used
-                    <FormItem>
-                      <FormLabel className="text-[14px] text-[#A9A9AE] leading-[21px] font-medium">
-                        OTP Code
-                      </FormLabel>
+                name="otp"
+                render={() => (
+                  <FormItem>
+                    <div className="flex items-center justify-center">
 
-                      {otp.map((digit, index) => (
-                        <Input
-                          key={index}
-                          value={digit}
-                          onChange={(e) => handleInputChange(e, index)} // Handle the change for each input
-                          className="otp-input"
-                          maxLength={1} // Each input should accept only one character
-                          type="text"
-                          autoFocus={index === 0} // Focus on the first input initially
-                        />
-                      ))}
+                      <InputOTP
+                        maxLength={6}
+                        value={passwordOtp.join('')}
+                        onChange={handlePasswordOtpChange} 
+                      >
+                        <InputOTPGroup className="flex gap-4 justify-center">
+                          {[...Array(6)].map((_, index) => (
+                            <InputOTPSlot key={index} index={index} className="w-12 h-12 
+                            border rounded-md text-center text-xl" />
+                          ))}
+                        </InputOTPGroup>
+                      </InputOTP>
 
-                      <FormMessage />
-                    </FormItem>
+                    </div>
+                    
+                    <FormMessage />
+                  </FormItem>
                 )}
               />
             </div>
@@ -288,13 +293,15 @@ const SettingsAuthenticationSection = () => {
               <Button
                 type="button"
                 onClick={handleUpdatePassword}
-                className="w-full bg-[#5B52B6] text-white"
+                disabled={emailOtp.some((digit) => !digit)} 
+                className={`w-full text-white ${passwordOtp.some((digit) => !digit) ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#5B52B6] cursor-pointer'}`}
               >
-                Update Password
+                Continue
               </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
+
       </FormProvider>
 
       <div className="pt-10">
