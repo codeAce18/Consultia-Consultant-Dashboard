@@ -67,6 +67,7 @@ interface Client {
 
 
 interface InvoiceItem {
+  item: string;
   description: string;
   quantity: string;
   unitPrice: string;
@@ -347,7 +348,15 @@ const InvoiceContent = () => {
       ...prev,
       items: [
         ...prev.items,
-        { description: '', quantity: '', unitPrice: '', total: '', cost: '', hours: '' }, 
+        {
+          item: '',
+          description: '',
+          quantity: '',   
+          unitPrice: '',  
+          total: '',       
+          cost: '',        
+          hours: '',       
+        },
       ],
     }));
   };
