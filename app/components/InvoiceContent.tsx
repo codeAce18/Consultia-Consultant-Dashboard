@@ -220,10 +220,10 @@ const InvoiceContent = () => {
     setSelectedInvoices([]);
   };
 
-  const handleClick = (event, id) => {
+  const handleClick = (event: React.MouseEvent, id: string) => {
     const selectedIndex = selectedInvoices.indexOf(id);
-    let newSelected = [];
-
+    let newSelected: string[] = [];
+  
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selectedInvoices, id);
     } else if (selectedIndex === 0) {
@@ -236,7 +236,7 @@ const InvoiceContent = () => {
         selectedInvoices.slice(selectedIndex + 1)
       );
     }
-
+  
     setSelectedInvoices(newSelected);
   };
 
