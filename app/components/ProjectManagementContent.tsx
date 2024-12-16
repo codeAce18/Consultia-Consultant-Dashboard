@@ -41,7 +41,7 @@ import GlassHour from "../../public/assets/GlassHour.svg"
 import PriorityIcon from "../../public/assets/PriorityIcon.svg"
 
 
-import TimerClock from "../../public/assets/TimerClock.svg"
+import timerClock from "../../public/assets/timerClock.svg"
 
 import Assignee from "../../public/assets/Assignee.svg"
 
