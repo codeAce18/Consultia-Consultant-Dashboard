@@ -82,11 +82,7 @@ interface InvoiceDetails {
 
 }
 
-interface EmailDetails {
-  email: string;
-  subject: string;
-  message: string;
-}
+
 const InvoiceContent = () => {
   const [selectedInvoices, setSelectedInvoices] = useState<string[]>([]);
   const [anchorEls, setAnchorEls] = React.useState<Record<string | number, HTMLElement | null>>({});
