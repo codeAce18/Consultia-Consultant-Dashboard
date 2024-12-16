@@ -7,13 +7,43 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import Image from "next/image";
 import GreenCheck from "../../public/assets/GreenCheck.svg";
 
+interface InvoiceSendSheetProps {
+  isOpen: boolean;
+  onClose: () => void;
+  invoiceDetails: InvoiceDetails;
+  onSendInvoice: (emailDetails: EmailDetails) => void;
+}
+
+interface InvoiceDetails {
+  dateIssued: string;
+  invoiceNumber: string;
+  id?: number; 
+  amount?: number;  
+  date?: string;
+  items: InvoiceItem[];
+}
+
+interface InvoiceItem {
+  description: string;
+  quantity: string;
+  unitPrice: string;
+  total: string;
+}
+
+interface EmailDetails {
+  from: string;
+  to: string;
+  subject: string;
+  message: string;
+}
+
 const InvoiceSendSheet = ({ 
   isOpen, 
   onClose, 
   invoiceDetails, 
   onSendInvoice 
-}) => {
-  const [emailDetails, setEmailDetails] = useState({
+}: InvoiceSendSheetProps) => {
+  const [emailDetails, setEmailDetails] = useState<EmailDetails>({
     from: '',
     to: '',
     subject: '',
@@ -22,20 +52,20 @@ const InvoiceSendSheet = ({
 
   const [isSent, setIsSent] = useState(false);
 
-  const handleInputChange = (field, value) => {
+
+  const handleInputChange = (field: string, value: string) => {
     setEmailDetails(prev => ({
       ...prev,
       [field]: value
     }));
   };
 
-  const handleSendInvoice = () => {
-    // Here you would typically implement the actual send logic
-    // For now, we'll just simulate a successful send
-    onSendInvoice(emailDetails);
-    setIsSent(true);
-  };
-
+ const handleSendInvoice = () => {
+  // Here you would typically implement the actual send logic
+  // For now, we'll just simulate a successful send
+  onSendInvoice(emailDetails); // Correctly passes the emailDetails object
+  setIsSent(true);
+};
   const handleClose = () => {
     setIsSent(false);
     onClose();
@@ -129,15 +159,14 @@ const InvoiceSendSheet = ({
           </div>
         </div>
 
-        {/* Invoice PDF Preview */}
         <div className="bg-[#F9F9FF] rounded-lg p-4 mb-6 flex items-center">
           <FileText className="text-[#5B52B6] mr-4" size={24} />
           <div>
             <h3 className="font-semibold text-[#101828]">
-              Invoice #{invoiceDetails.invoiceNumber}
+              Invoice #{invoiceDetails?.invoiceNumber || 'N/A'} {/* Fallback for invoice number */}
             </h3>
             <p className="text-[#667085] text-sm">
-              PDF, {invoiceDetails.dateIssued}
+              PDF, {invoiceDetails?.dateIssued || 'Date not available'} {/* Fallback for date */}
             </p>
           </div>
         </div>
