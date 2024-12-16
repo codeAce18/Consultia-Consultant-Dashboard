@@ -34,11 +34,13 @@ import {
   TableRow, 
   Paper, 
   Checkbox, 
-  Avatar, 
+
   IconButton, 
   Menu, 
   TablePagination
 } from '@mui/material';
+
+import Avatar from '@mui/material/Avatar';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 
@@ -267,14 +269,17 @@ const InvoiceContent = () => {
   };
 
 
-  const handleChangePage = (event: React.MouseEvent, newPage: number) => {
-  setPage(newPage);
-};
-
-const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  setRowsPerPage(parseInt(event.target.value, 10));
-  setPage(0);
-};
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null, 
+    newPage: number
+  ) => {
+    setPage(newPage);
+  };
+  
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Reset to first page after changing rows per page
+  };
 
   const handleClientChange = (value: string) => {
     const client = clients.find(c => c.id === value) || null;
@@ -538,12 +543,11 @@ const handleSendInvoice = (): void => {
                       <TableCell><h1 className="text-[#A3A2AB] text-[16px] leading-[24px] font-medium">{invoice.id}</h1></TableCell>
                       <TableCell>
                         <div className="flex items-center space-x-2">
-                          <Avatar 
-                            width={26}
-                            height={26}
-                            src={invoice.client.avatar} 
-                            alt={invoice.client.name} 
-                          />
+                        <Avatar 
+                          src={invoice.client.avatar} 
+                          alt={invoice.client.name} 
+                          sx={{ width: 26, height: 26 }} 
+                        />
                           <div>
                             <div className="text-[#101828] text-[16px] leading-[24px] font-normal">{invoice.client.name}</div>
                             <div className="text-[#A3A2AB] text-[13px] leading-[19.5px] font-normal">
@@ -663,8 +667,8 @@ const handleSendInvoice = (): void => {
               count={filteredInvoices.length}
               rowsPerPage={rowsPerPage}
               page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
+              onPageChange={handleChangePage}  
+              onRowsPerPageChange={handleChangeRowsPerPage} 
             />
           </TableContainer>
         </div>
