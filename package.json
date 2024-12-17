@@ -33,6 +33,7 @@
     "react": "^18",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18",
+    "react-dropzone": "^14.3.5",
     "react-hook-form": "^7.54.0",
     "recharts": "^2.13.3",
     "tailwind-merge": "^2.5.5",
