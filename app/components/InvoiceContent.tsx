@@ -574,7 +574,7 @@ const handleSendInvoice = (): void => {
                       <TableCell>
                       <div
                         className={`
-                           w-[96px] p-[10px] rounded-[100px] flex justify-center items-center px-3 py-1 rounded-full text-sm font-medium
+                           w-[96px] p-[10px] rounded-[100px] flex justify-center items-center px-3 py-1  text-sm font-medium
                           ${
                             invoice.status === 'Paid'
                               ? 'bg-[#D2F6D2] text-[#008000]'
@@ -792,11 +792,11 @@ const handleSendInvoice = (): void => {
                     </div>
                   </div>
                   {invoiceDetails.items.map((item, index) => (
-                    <div key={index} className="flex  items-center gap-10 mb-2 items-center">
+                    <div key={index} className="flex  items-center gap-10 mb-2 ">
                     {/* Item Dropdown */}
                     <Select 
                       value={item.item}
-                      onValueChange={(value) => handleItemChange(index, 'item', value)}
+                      onValueChange={(value: string) => handleItemChange(index, 'item', value)}
                     >
                       <SelectTrigger className="bg-[#F1F1F1] w-[316px]">
                         <SelectValue placeholder="Select Item" />

@@ -1174,7 +1174,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({ setActiveComponent 
       </div>
 
       <div className="pt-10">
-        <div className="grid grid-cols-4 gap-8">
+        <div className="grid grid-cols-4 gap-4">
 
           <div className="bg-[#FFFFFF] rounded-[8px] border-[1px] shadow-custom  border-[#F0F0F9] max-w-[260px] p-[16px] w-full">
             <div className="flex items-center gap-[5px]">
@@ -1211,7 +1211,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({ setActiveComponent 
       </div>
 
       <div className='pt-[20px]'>
-        <div className="flex gap-6 w-full">
+        <div className="flex gap-4 w-full">
 
           <IncomeSummaryChart />
             
