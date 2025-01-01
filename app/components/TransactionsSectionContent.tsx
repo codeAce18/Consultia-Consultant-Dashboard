@@ -248,6 +248,7 @@ const TransactionsSectionContent: React.FC<TransactionsSectionContentProps> = ({
   
         {/* Pagination */}
         <TablePagination
+         className="scrollbar-hide"
           rowsPerPageOptions={[5, 10, 15]}
           component="div"
           count={displayTransactions.length}

@@ -103,7 +103,7 @@ const InvoiceSendSheet = ({
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="right" className="w-[500px] p-8 overflow-y-auto">
+      <SheetContent side="right" className="max-w-[500px] w-full p-8 overflow-y-auto">
         <SheetHeader className="mb-6">
           <SheetTitle className="text-2xl font-bold">Send Invoice</SheetTitle>
         </SheetHeader>

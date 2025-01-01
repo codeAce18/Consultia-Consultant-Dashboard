@@ -103,7 +103,7 @@ const SettingsAuthenticationSection = () => {
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(() => {})} className="space-y-6 pt-10">
           {/* Email Update Section */}
-          <div className="flex gap-4 items-end">
+          <div className="flex  flex-col gap-4 items-start ">
             <FormField
               name="emailAddress"
               render={({ field }) => (
@@ -158,7 +158,7 @@ const SettingsAuthenticationSection = () => {
           </div>
 
           {/* Password Update Section */}
-          <div className="flex gap-4 items-end">
+          <div className="flex flex-col gap-4 items-start ">
             <FormField
               name="password"
               render={({ field }) => (
@@ -348,7 +348,7 @@ const SettingsAuthenticationSection = () => {
             <h1 className="text-[16px] leading-[24px] text-[#101828] font-bold">Delete Account ?</h1>
 
 
-            <div className="flex pt-[10px] gap-[8px]">
+            <div className="flex lg:flex-row flex-col pt-[10px] gap-[8px]">
               <p className="text-[#41404B] text-[16px] leading-[22.4px] font-normal">We do our best to give you great experience, we will be sad to see you leave.</p>
 
               <p className="text-[#5B52B6] text-[16px] leading-[24px] font-normal">Delete Account</p>

@@ -41,8 +41,6 @@ import {
   TablePagination,
   IconButton,
   Paper,
-//   Menu,
-//   MenuItem,
   Typography,
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -191,8 +189,8 @@ const WalletSectionContent: React.FC<TransactionsSectionContentProps> = ({transa
 
 
             <div className="pt-10">
-                <div className="flex items-start gap-32">
-                    <div className="flex items-center justify-center rounded-[10.58px] shadow-custom-lg gap-16 bg-[#FFFFFF] p-[30px] max-w-[565px] w-full">
+                <div className="flex flex-wrap items-start lg:gap-32 gap-16">
+                    <div className="flex  flex-col lg:flex-row md:flex-row items-center justify-center rounded-[10.58px] shadow-custom-lg gap-16 bg-[#FFFFFF] p-[30px] max-w-[565px] w-full">
                         <div className="space-y-[20px]">
                             <div>
                                 <h1 className="text-[#101828] text-[20px] leading-[30px] font-semibold">6500413410</h1>
@@ -357,7 +355,7 @@ const WalletSectionContent: React.FC<TransactionsSectionContentProps> = ({transa
                 </div>
 
                 {/* Statistics Content */}
-                <div className="flex items-center justify-between pt-[20px]">
+                <div className="flex flex-wrap items-center space-y-6 justify-between pt-[20px]">
                     {/* Total Inflow */}
                     <div className="flex items-center gap-10">
                     <div className="flex items-center gap-[15px]">
@@ -551,54 +549,6 @@ const WalletSectionContent: React.FC<TransactionsSectionContentProps> = ({transa
         </>
         )}
 
-
-            {/* <div className="pt-[30px]">
-                <div className="flex items-center justify-between">
-                    <h1 className="text-[#41404B] text-[16.5px] leading-[19.8px] font-semibold">Statistics</h1>
-
-                    <p>Oct 2024</p>
-                </div>
-
-                <div className="flex items-center justify-between pt-[20px]">
-                    <div className="flex items-center gap-10">
-                        <div className="flex items-center gap-[15px]">
-                            <Image width={24} height={24} src={TotalInflowsIcon} alt="TotalInflowsIcon" />
-                            <div>
-                                <p className="text-[#A3A2AB] text-[14px] leading-[21px] font-normal">Total Inflow</p>
-                                <h1 className="text-[#41404B] text-[16px] leading-[22.4px] font-semibold">₦2,000,000</h1>
-                            </div>
-                        </div>
-
-                        <p className="text-[#1ED11E] text-[14px] leading-[21px] font-normal bg-[#D3FED3] w-[57px] rounded-[100px] flex items-center justify-center p-[10px]">+20%</p>
-                    </div>
-
-
-                    <div className="flex items-center gap-10">
-                        <div className="flex items-center gap-[15px]">
-                            <Image width={24} height={24} src={TotalOutflowsIcon} alt="TotalOutflowsIcon" />
-                            <div>
-                                <p className="text-[#A3A2AB] text-[14px] leading-[21px] font-normal">Total Outflow</p>
-                                <h1 className="text-[#41404B] text-[16px] leading-[22.4px] font-semibold">₦1,800,000</h1>
-                            </div>
-                        </div>
-
-                        <p className="text-[#F87B24] text-[14px] leading-[21px] font-normal bg-[#FAD9C2] w-[57px] rounded-[100px] flex items-center justify-center p-[10px]">-13%</p>
-                    </div>
-
-
-                    <div className="flex items-center gap-10">
-                        <div className="flex items-center gap-[15px]">
-                            <Image width={24} height={24} src={TransactionCountIcon} alt="TransactionCountIcon" />
-                            <div>
-                                <p className="text-[#A3A2AB] text-[14px] leading-[21px] font-normal">Transaction Count</p>
-                                <h1 className="text-[#41404B] text-[16px] leading-[22.4px] font-semibold">355</h1>
-                            </div>
-                        </div>
-
-                        <p className="text-[#5B52B6] text-[14px] leading-[21px] font-normal bg-[#5B52B61A] w-[57px] rounded-[100px] flex items-center justify-center p-[10px]">-5%</p>
-                    </div>
-                </div>
-            </div> */}
         </div>
 
     )

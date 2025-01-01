@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Image from "next/image";
-import { Input } from '@/components/ui/input';
+
 import { Separator } from "@/components/ui/separator"
-import { SearchIcon } from 'lucide-react';
+
 
 import more from "../../public/assets/more.svg"
 import MediumSvg from "../../public/assets/MediumSvg.svg"
@@ -12,14 +12,11 @@ import Femi from "../../public/assets/Femi.svg"
 import Omar from "../../public/assets/Omar.svg"
 import David from "../../public/assets/David.svg"
 import Liam from "../../public/assets/Liam.svg"
-import NotificationIcon from "../../public/assets/NotificationIcon.svg"
+
 import Timer from "../../public/assets/Timer.svg"
-import ChatIcon from "../../public/assets/ChatIcon.svg"
+
 import AddCircle from "../../public/assets/AddCircle.svg"
-import MyProfile from "../../public/assets/MyProfile.svg"
-import Arrowdown from "../../public/assets/Arrowdown.svg"
-import profile from "../../public/assets/profile.svg"
-import LogOutIcon from "../../public/assets/LogOutIcon.svg"
+
 
 
 import AssignedToIcon from "../../public/assets/AssignedToIcon.svg"
@@ -56,6 +53,7 @@ import Plus from "../../public/assets/Plus.svg"
 
 import TodoList from './TodoList';
 import { CreateNewProjectSheet } from './CreateNewProjectSheet';
+import DashboardHeader from './DashboardHeader';
 
 // Type definitions
 type TeamMember = {
@@ -84,16 +82,18 @@ type ProjectCardProps = {
   isSelected: boolean;
 };
 
-const ProjectManagementContent: React.FC = () => {
+type ProjectManagementContentProps = {
+  setActiveComponent: (component: string) => void;
+};
+
+const ProjectManagementContent: React.FC<ProjectManagementContentProps> = ({ setActiveComponent }) => {
   const [activeTab, setActiveTab] = useState<string>('All Projects');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isOverlayVisible, setIsOverlayVisible] = useState<boolean>(false);
 
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
-  const toggleOverlay = () => {
-    setIsOverlayVisible(!isOverlayVisible);
-  };
+
 
   const [isMoreOverlayVisible, setIsMoreOverlayVisible] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -115,7 +115,7 @@ const ProjectManagementContent: React.FC = () => {
  
     return (
         <div className="pt-10">
-          <div className='grid grid-cols-2'>
+          <div className='flex flex-wrap-reverse'>
             <div className='flex-1'>
               <h1 className='text-[#101828] text-[20px] leading-[30px] font-medium'>{editedProject?.title || ''}</h1>
               <div className='flex items-center justify-start gap-[10px] pt-[10px]'>
@@ -222,7 +222,7 @@ const ProjectManagementContent: React.FC = () => {
                 <h1 className='text-[#101828] text-[16.5px] leading-[24.75px] font-medium'>Uploaded</h1>
               </div>
 
-              <div className='flex items-center gap-[10px]'>
+              <div className='flex flex-wrap items-center gap-[10px]'>
                 <Image src={GuidelinesPdf} alt='GuidelinesPdf' />
 
                 <Image src={BrandingAssets} alt='BrandingAssets' />
@@ -585,63 +585,8 @@ const ProjectManagementContent: React.FC = () => {
   return (
     <div>
       {/* Header */}
-      <div className="flex justify-between">
-        <div>
-          <div className="flex items-center gap-10">
-            <h1 className="text-[20px] leading-[30px] text-[#101828] font-bold whitespace-nowrap">Project Board</h1>
-            <div>
-              <div className="relative flex items-center w-[479px] h-[40px] mx-auto">
-                <Input
-                  type="text"
-                  placeholder="Search..."
-                  className="pr-10 pl-10 py-2 border-none bg-[#F0F0F9] rounded-[100px] w-full text-gray-800 focus:outline-none focus:ring focus:ring-blue-300"
-                />
-                <div className="absolute left-3">
-                  <SearchIcon className="w-[24px] h-[24px] text-gray-500" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div className="flex items-center gap-[10px] border-l-[1px] border-[#D0D0D3] pl-[20px]">
-          <div>
-            <Image width={24} height={24} src={NotificationIcon} alt="NotificationIcon"/>
-          </div>
-          <div>
-            <Image width={24} height={24} src={ChatIcon} alt="ChatIcon"/>
-          </div>
-          <div>
-            <div className="flex items-center gap-[10px] cursor-pointer" onClick={toggleOverlay}>
-              <div>
-                <Image width={24} height={24} src={MyProfile} alt="MyProfile" />
-              </div>
-              <div>
-                <h1 className="text-[13px] leading-[19.5px] text-[#101828] font-semibold">Dora Consulting</h1>
-                <p className="text-[#41404B] text-[13px] leading-[19.5px] font-normal">Consultant</p>
-              </div>
-              <div>
-                <Image width={16} height={16} src={Arrowdown} alt="Arrowdown" />
-              </div>
-            </div>
-
-            {isOverlayVisible && (
-              <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50" onClick={toggleOverlay}>
-                <div className="bg-white flex flex-col items-start gap-y-[12px] p-[8px] w-[134px] rounded-lg shadow-lg absolute top-20 right-6">
-                  <div className='flex items-center gap-[12px]'>
-                    <Image width={24} height={24} src={profile} alt="profile" />
-                    <h2 className='text-[#101828] text-[13px] leading-[19.5px] font-normal'>Profile</h2>
-                  </div>
-                  <div className='flex items-center gap-[12px]'>
-                    <Image width={24} height={24} src={LogOutIcon} alt="LogOutIcon" />
-                    <h2 className='text-[#101828] text-[13px] leading-[19.5px] font-normal'>Log Out</h2>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+      <DashboardHeader title='Project Board' setActiveComponent={setActiveComponent} />
 
       <div className="pt-[24px]">
         <Separator />
@@ -650,9 +595,9 @@ const ProjectManagementContent: React.FC = () => {
       {isEditMode ? (
       <EditProjectView />
     ) : (
-      <div className="flex">
+      <div className="flex lg:flex-row  flex-col">
     <div className="pt-10">
-      <div className="flex items-start gap-24">
+      <div className="flex lg:flex-row flex-wrap  items-start gap-24">
         <div className="grid grid-cols-2 gap-10">
           {['All Projects', 'Ongoing Projects', 'Completed Projects'].map(tab => (
             <div
@@ -686,7 +631,7 @@ const ProjectManagementContent: React.FC = () => {
       </div>
 
       <div className="pt-[30px]">
-        <div className="bg-white pt-10 max-w-[772px] w-full overflow-y-auto max-h-[936px] scrollbar-thin scrollbar-thumb-[#5B52B6] scrollbar-track-[#F0F0F9]   gap-4 grid grid-cols-2 ">
+        <div className="bg-white pt-10 max-w-[450px] lg:max-w-[772px] w-full overflow-y-auto max-h-[936px] scrollbar-thin scrollbar-thumb-[#5B52B6] scrollbar-track-[#F0F0F9]   gap-4 grid grid-cols-1 lg:grid-cols-2 ">
           {filteredProjects.map(project => (
             <ProjectCard 
               key={project.id}
@@ -702,110 +647,101 @@ const ProjectManagementContent: React.FC = () => {
     {/* <div className="pt-10 flex"> */}
       
 
-      {selectedProject && (
-        <div className="ml-4 p-4 border-[1px] border-[#D0D0D3] w-[317px]  bg-[#FFFFFF]">
-          <div className="flex items-center justify-between pt-[30px]">
-            <h1 className="text-[#101828] text-[20px] leading-[30px] font-bold">Project Overview</h1>
-
-            <div className="relative inline-block">
-              <div onClick={toggleEditMode} className="cursor-pointer">
-                <Image src={more} alt="more" />
-              </div>
-
-              {isMoreOverlayVisible && (
-                <div className="absolute top-full right-0 mt-2 w-[134px] p-[8px] bg-white shadow-lg rounded-md z-10">
-                  <div className='space-y-[12px]'>
-                    <div className='flex items-center gap-[10px]'>
-                      <Image src={EditPen} alt='EditPen' />
-                      <h1 className='text-[#101828] text-[13px] leading-[19.5px] font-normal'>Edit</h1>
-                    </div>
-
-                    <div className='flex items-center gap-[10px]'>
-                      <Image src={CancelIcon} alt='CancelIcon' />
-                      <h1 className='text-[#101828] text-[13px] leading-[19.5px] font-normal'>Cancel</h1>
+      <div className='pt-10 lg:pt-0'>
+        {selectedProject && (
+          <div className=" ml-4 p-4 border-[1px] border-[#D0D0D3] lg:w-[317px] md:w-[450px] w-[300px] md:mx-auto bg-[#FFFFFF]">
+            <div className="flex items-center justify-between pt-[30px]">
+              <h1 className="text-[#101828] text-[20px] leading-[30px] font-bold">Project Overview</h1>
+              <div className="relative inline-block">
+                <div onClick={toggleEditMode} className="cursor-pointer">
+                  <Image src={more} alt="more" />
+                </div>
+                {isMoreOverlayVisible && (
+                  <div className="absolute top-full right-0 mt-2 w-[134px] p-[8px] bg-white shadow-lg rounded-md z-10">
+                    <div className='space-y-[12px]'>
+                      <div className='flex items-center gap-[10px]'>
+                        <Image src={EditPen} alt='EditPen' />
+                        <h1 className='text-[#101828] text-[13px] leading-[19.5px] font-normal'>Edit</h1>
+                      </div>
+                      <div className='flex items-center gap-[10px]'>
+                        <Image src={CancelIcon} alt='CancelIcon' />
+                        <h1 className='text-[#101828] text-[13px] leading-[19.5px] font-normal'>Cancel</h1>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
-          </div>
         
-
-          <div className="pt-[10px]">
-            <div
-              className={`max-w-[96px] w-full justify-center rounded-[100px] h-[28px] gap-[6px] flex items-center ${selectedProject.priorityColor}`}
-            >
-              <Image
-                src={selectedProject.priorityIcon}
-                alt={`${selectedProject.priority}Svg`}
-                width={16} // Adjust the size as needed
-                height={16}
-              />
-              {selectedProject.priority}
+            <div className="pt-[10px]">
+              <div
+                className={`max-w-[96px] w-full justify-center rounded-[100px] h-[28px] gap-[6px] flex items-center ${selectedProject.priorityColor}`}
+              >
+                <Image
+                  src={selectedProject.priorityIcon}
+                  alt={`${selectedProject.priority}Svg`}
+                  width={16} // Adjust the size as needed
+                  height={16}
+                />
+                {selectedProject.priority}
+              </div>
             </div>
-          </div>
-
-          <div className='pt-8'>
-            <h2 className="text-[#101828] text-[20px] leading-[30px] font-medium">{selectedProject.title}</h2>
-            <p className="pt-[10px] text-[#A3A2AB] text-[16px] leading-[24px] font-normal">{selectedProject.description}</p>
-          </div> 
-
-          <div className="mt-4 space-y-[20px]">
-            
-            <div className='flex items-center gap-[10px]'>
-              <Image src={StatusIcon} alt="StatusIcon" />
-              <p className='flex items-center gap-[30px] text-[#D0D0D3] text-[16px] leading-[22.4px] font-normal'>Status: <span className='text-[#5B52B6] bg-[#F0F0F9]'>{selectedProject.status}</span></p>
+            <div className='pt-8'>
+              <h2 className="text-[#101828] text-[20px] leading-[30px] font-medium">{selectedProject.title}</h2>
+              <p className="pt-[10px] text-[#A3A2AB] text-[16px] leading-[24px] font-normal">{selectedProject.description}</p>
             </div>
-
-          
-            <div className='flex items-center gap-[10px]'>
-              <Image src={TimelineIcon} alt="TimelineIcon" />
-              <p className='flex items-center gap-[30px] text-[#D0D0D3] text-[16px] leading-[24px] font-normal'>Timeline<span className='text-[#5B52B6]'>Sept 24,2024</span></p>
+            <div className="mt-4 space-y-[20px]">
+        
+              <div className='flex items-center gap-[10px]'>
+                <Image src={StatusIcon} alt="StatusIcon" />
+                <p className='flex items-center gap-[30px] text-[#D0D0D3] text-[16px] leading-[22.4px] font-normal'>Status: <span className='text-[#5B52B6] bg-[#F0F0F9]'>{selectedProject.status}</span></p>
+              </div>
+        
+              <div className='flex items-center gap-[10px]'>
+                <Image src={TimelineIcon} alt="TimelineIcon" />
+                <p className='flex items-center gap-[30px] text-[#D0D0D3] text-[16px] leading-[24px] font-normal'>Timeline<span className='text-[#5B52B6]'>Sept 24,2024</span></p>
+              </div>
+              <div className='flex items-center gap-[10px]'>
+                <Image src={AssignedToIcon} alt="AssignedToIcon" />
+                <p className='flex items-center gap-[30px] text-[#D0D0D3] text-[16px] leading-[24px] font-normal'>Assignee</p>
+                {selectedProject.team.map(member => (
+                  <div key={member.name} className="flex items-center">
+                    <Image width={30} height={30} src={member.image} alt={member.name} />
+                  </div>
+                ))}
+              </div>
             </div>
-
-            <div className='flex items-center gap-[10px]'>
-              <Image src={AssignedToIcon} alt="AssignedToIcon" />
-              <p className='flex items-center gap-[30px] text-[#D0D0D3] text-[16px] leading-[24px] font-normal'>Assignee</p>
-              {selectedProject.team.map(member => (
-                <div key={member.name} className="flex items-center">
-                  <Image width={30} height={30} src={member.image} alt={member.name} />
-                </div>
-              ))}
-            </div>
-          </div>
-          
-            <div className='pt-10'>
-              <h1 className='text-[#101828] text-[20px] leading-[30px] font-bold'>To-Do List</h1>
-              <div className="pt-[25px] bg-white">
+        
+              <div className='pt-10'>
+                <h1 className='text-[#101828] text-[20px] leading-[30px] font-bold'>To-Do List</h1>
+                <div className="pt-[25px] bg-white">
+                  <div className="py-[10.75px] px-[7.17px] shadow-custom-two border-b-[7px]">
+                    <TodoList label="Clients Meetings and Calls" />
+                  </div>
                 <div className="py-[10.75px] px-[7.17px] shadow-custom-two border-b-[7px]">
-                  <TodoList label="Clients Meetings and Calls" />
+                  <TodoList label="Strategy Development" />
                 </div>
-              <div className="py-[10.75px] px-[7.17px] shadow-custom-two border-b-[7px]">
-                <TodoList label="Strategy Development" />
-              </div>
-              <div className="py-[10.75px] px-[7.17px] shadow-custom-two border-b-[7px]">
-                <TodoList label="Report Writing & Documentation" />
-              </div>
-              <div className="py-[10.75px] px-[7.17px] shadow-custom-two border-b-[7px]">
-                <TodoList label="Team Collaboration" />
-              </div>
-              <div className="py-[10.75px] px-[7.17px] shadow-custom-two border-b-[7px]">
-                <TodoList label="Client Communication" />
-              </div>
-              <div className="py-[10.75px] px-[7.17px] shadow-custom-two border-b-[7px]">
-                <TodoList label="Market & Industry Research" />
-              </div>
-              <div className="py-[10.75px] px-[7.17px] shadow-custom-two border-b-[7px]">
-                <TodoList label="Attend NAPCO Conference" />
+                <div className="py-[10.75px] px-[7.17px] shadow-custom-two border-b-[7px]">
+                  <TodoList label="Report Writing & Documentation" />
+                </div>
+                <div className="py-[10.75px] px-[7.17px] shadow-custom-two border-b-[7px]">
+                  <TodoList label="Team Collaboration" />
+                </div>
+                <div className="py-[10.75px] px-[7.17px] shadow-custom-two border-b-[7px]">
+                  <TodoList label="Client Communication" />
+                </div>
+                <div className="py-[10.75px] px-[7.17px] shadow-custom-two border-b-[7px]">
+                  <TodoList label="Market & Industry Research" />
+                </div>
+                <div className="py-[10.75px] px-[7.17px] shadow-custom-two border-b-[7px]">
+                  <TodoList label="Attend NAPCO Conference" />
+                </div>
               </div>
             </div>
+        
           </div>
-
-
-            
-
-        </div>
-      )}
+        )}
+      </div>
     {/* </div> */}
     </div>
     )}

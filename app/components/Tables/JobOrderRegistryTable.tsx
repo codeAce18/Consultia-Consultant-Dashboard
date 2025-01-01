@@ -356,8 +356,8 @@ const JobOrderRegistryTable: React.FC = () => {
     <div>
       {/* Tabs Section */}
       <div className='pt-10'>
-        <div className='flex items-center justify-between'>
-          <div className='flex items-center space-x-10'>
+        <div className='flex   flex-col lg:flex-row lg:items-center items-start lg:justify-between'>
+          <div className='flex gap-y-[16px] flex-wrap items-start lg:items-center space-x-10'>
             {tabs.map((tab) => (
               <div 
                 key={tab}
@@ -372,13 +372,15 @@ const JobOrderRegistryTable: React.FC = () => {
               </div>
             ))}
           </div>
-          <button 
-            className='flex items-center bg-[#5B52B6] gap-[8px] max-w-[121px] w-full rounded-[4px] h-[32px] whitespace-nowrap px-[10px] text-[#FFFFFF] text-[14px] leading-[20px] font-normal'
-            onClick={() => {/* Export CSV logic */}}
-          >
-            <Image src={Export} alt="Export" />
-            Export CSV
-          </button>
+          <div className='pt-6 lg:pt-0'>
+            <button
+              className='flex items-center bg-[#5B52B6] gap-[8px] max-w-[121px] w-full rounded-[4px] h-[32px] whitespace-nowrap px-[10px] text-[#FFFFFF] text-[14px] leading-[20px] font-normal'
+              onClick={() => {/* Export CSV logic */}}
+            >
+              <Image src={Export} alt="Export" />
+              Export CSV
+            </button>
+          </div>
         </div>
       </div>
       {/* Table Section */}
@@ -465,6 +467,7 @@ const JobOrderRegistryTable: React.FC = () => {
 
         {/* Custom Pagination */}
         <TablePagination
+          className="scrollbar-hide"
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={filteredJobOrders.length}

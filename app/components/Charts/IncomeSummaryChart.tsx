@@ -24,8 +24,8 @@ const IncomeSummaryChart: React.FC = () => {
   const tickFormatter = (value: number): string => `${value}m`;
 
   return (
-    <div className="flex flex-col shadow-custom-light items-start bg-[#FFFFFF] w-[540px] h-[336px] rounded-[8px] border-[1.06px] border-[#F8F9FA]">
-      <div className="flex items-center gap-[250px] mb-4 pt-4">
+    <div className="flex flex-col shadow-custom-light items-start bg-[#FFFFFF] max-w-[540px] w-full h-[336px] rounded-[8px] border-[1.06px] border-[#F8F9FA]">
+      <div className="flex items-center lg:gap-[250px] md:gap-[200px] mb-4 pt-4">
         <h2 className="text-[20px] leading-[32px] tracking-[-2%]  font-bold mr-4 whitespace-nowrap pl-10 text-[#1B2559]">
             Income Summary
         </h2>

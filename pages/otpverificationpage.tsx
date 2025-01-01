@@ -57,12 +57,12 @@ const OTPVerificationPage = () => {
               value={otpValue} 
               onChange={(value) => setOtpValue(value)}
             >
-              <InputOTPGroup className="gap-8">
+              <InputOTPGroup className="gap-2 sm:gap-4 md:gap-8">
                 {[...Array(6)].map((_, index) => (
                   <InputOTPSlot 
                     key={index} 
                     index={index} 
-                    className="border border-gray-300 rounded-md w-10 h-10"
+                    className="border border-gray-300 rounded-md w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14"
                   />
                 ))}
               </InputOTPGroup>

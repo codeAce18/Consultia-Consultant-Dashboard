@@ -128,7 +128,7 @@ export const CreateNewProjectSheet: React.FC<CreateNewProjectSheetProps> = ({
 
   return (
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
-      <SheetContent className="w-[600px] overflow-y-auto">
+      <SheetContent className="max-w-[600px] w-full overflow-y-auto">
         <SheetHeader className="mb-6">
           <SheetTitle>Create New Project</SheetTitle>
           <SheetDescription>
@@ -407,20 +407,21 @@ export const CreateNewProjectSheet: React.FC<CreateNewProjectSheetProps> = ({
          
 
             {/* Action Buttons */}
-            <SheetFooter className="flex space-x-4 pt-10">
-            <Button 
-                variant="outline" 
-                onClick={handleReset}
-                className="w-1/2"
-            >
-                Reset
-            </Button>
-            <Button 
-                onClick={handleCreateProject} 
-                className="w-1/2 bg-[#5B52B6]"
-            >
-                Create Project
-            </Button>
+            <SheetFooter className="flex items-center justify-center pt-10">
+              <div className='grid grid-cols-2 gap-4'>
+                <Button
+                  variant="outline"
+                  onClick={handleReset}
+                >
+                  Reset
+                </Button>
+                <Button
+                  onClick={handleCreateProject}
+                  className=" bg-[#5B52B6]"
+                >
+                  Create Project
+                </Button>
+              </div>
             </SheetFooter>
         </SheetContent>
     </Sheet>

@@ -4,13 +4,6 @@ import { X } from 'lucide-react';
 import NoDocuments from "../../public/assets/NoDocuments.svg";
 import { Input } from '@/components/ui/input';
 import { Separator } from "@/components/ui/separator";
-import { SearchIcon } from 'lucide-react';
-import NotificationIcon from "../../public/assets/NotificationIcon.svg";
-import ChatIcon from "../../public/assets/ChatIcon.svg";
-import MyProfile from "../../public/assets/MyProfile.svg";
-import Arrowdown from "../../public/assets/Arrowdown.svg";
-import profile from "../../public/assets/profile.svg";
-import LogOutIcon from "../../public/assets/LogOutIcon.svg";
 import AddCircle from "../../public/assets/AddCircle.svg";
 import Dora from "../../public/assets/Dora.svg";
 import SendIcon from "../../public/assets/SendIcon.svg";
@@ -56,6 +49,7 @@ import {
   SelectValue
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import DashboardHeader from './DashboardHeader';
 
 
 interface Client {
@@ -87,7 +81,11 @@ interface InvoiceDetails {
 }
 
 
-const InvoiceContent = () => {
+interface InvoiceContentProps {
+  setActiveComponent: (component: string) => void;
+}
+
+const InvoiceContent: React.FC<InvoiceContentProps> = ({ setActiveComponent }) => {
   const [selectedInvoices, setSelectedInvoices] = useState<string[]>([]);
   const [anchorEls, setAnchorEls] = React.useState<Record<string | number, HTMLElement | null>>({});
   const [tabValue, setTabValue] = useState(0);
@@ -291,9 +289,7 @@ const InvoiceContent = () => {
     setSelectedClient(client);
   };
 
-  const toggleOverlay = () => {
-    setIsOverlayVisible(!isOverlayVisible);
-  };
+
 
   const generateInvoiceNumber = (): string => {
     // Example logic to generate an invoice number, e.g., based on current timestamp
@@ -414,63 +410,7 @@ const handleSendInvoice = (): void => {
 
   return (
     <div>
-      <div className="flex justify-between">
-        <div>
-          <div className="flex items-center gap-10">
-            <h1 className="text-[20px] leading-[30px] text-[#101828] font-bold whitespace-nowrap">My Invoice</h1>
-            <div>
-              <div className="relative flex items-center w-[479px] h-[40px] mx-auto">
-                <Input
-                  type="text"
-                  placeholder="Search..."
-                  className="pr-10 pl-10 py-2 border-none bg-[#F0F0F9] rounded-[100px] w-full text-gray-800 focus:outline-none focus:ring focus:ring-blue-300"
-                />
-                <div className="absolute left-3">
-                  <SearchIcon className="w-[24px] h-[24px] text-gray-500" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-[10px] border-l-[1px] border-[#D0D0D3] pl-[20px]">
-          <div>
-            <Image width={24} height={24} src={NotificationIcon} alt="NotificationIcon" />
-          </div>
-          <div>
-            <Image width={24} height={24} src={ChatIcon} alt="ChatIcon" />
-          </div>
-          <div>
-            <div className="flex items-center gap-[10px] cursor-pointer" onClick={toggleOverlay}>
-              <div>
-                <Image width={24} height={24} src={MyProfile} alt="MyProfile" />
-              </div>
-              <div>
-                <h1 className="text-[13px] leading-[19.5px] text-[#101828] font-semibold">Dora Consulting</h1>
-                <p className="text-[#41404B] text-[13px] leading-[19.5px] font-normal">Consultant</p>
-              </div>
-              <div>
-                <Image width={16} height={16} src={Arrowdown} alt="Arrowdown" />
-              </div>
-            </div>
-
-            {isOverlayVisible && (
-              <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50" onClick={toggleOverlay}>
-                <div className="bg-white flex flex-col items-start gap-y-[12px] p-[8px] w-[134px] rounded-lg shadow-lg absolute top-20 right-6">
-                  <div className='flex items-center gap-[12px]'>
-                    <Image width={24} height={24} src={profile} alt="profile" />
-                    <h2 className='text-[#101828] text-[13px] leading-[19.5px] font-normal'>Profile</h2>
-                  </div>
-                  <div className='flex items-center gap-[12px]'>
-                    <Image width={24} height={24} src={LogOutIcon} alt="LogOutIcon" />
-                    <h2 className='text-[#101828] text-[13px] leading-[19.5px] font-normal'>Log Out</h2>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+      <DashboardHeader title="Invoices" setActiveComponent={setActiveComponent} />
 
       <div className="pt-[24px]">
         <Separator />
@@ -479,8 +419,8 @@ const handleSendInvoice = (): void => {
       <div>
         {isInvoiceSent ? (
           <div>
-          <div className=" pt-10  items-center flex justify-between mb-4">
-            <div className="flex items-center space-x-2">
+          <div className=" pt-10 items-start  lg:items-center flex lg:flex-row flex-col  lg:justify-between mb-4">
+            <div className="flex flex-wrap items-center space-x-2">
               {tabs.map((tab, index) => (
                 <div 
                   key={tab}
@@ -688,10 +628,10 @@ const handleSendInvoice = (): void => {
         ) :
 
           isInvoiceCreated ? (
-          <div className="pt-10 flex items-start justify-between min-h-screen">
+          <div className="pt-10 lg:flex-row flex-col-reverse  flex items-start justify-between min-h-screen">
             <div className="bg-white max-w-[769px] w-full min-h-[872px] rounded-[8px] shadow-custom">
               <div className="pt-[24px]">
-                <div className="flex items-start justify-between rounded-[8px] bg-[#F9F9FF] max-w-[698px] w-full mx-auto p-[24px]">
+                <div className="flex flex-wrap md:items-center justify-center gap-20 items-center lg:items-start lg:justify-between rounded-[8px] bg-[#F9F9FF] max-w-[698px] w-full mx-auto p-[24px]">
                   <div className="flex items-start gap-[10px]">
                     <Image width={26} height={26} src={Dora} alt="Dora" />
                     <div>
@@ -730,7 +670,7 @@ const handleSendInvoice = (): void => {
                 </div>
 
                 <div className="pt-10">
-                  <div className="flex items-center max-w-[698px] w-full mx-auto justify-between">
+                  <div className="flex flex-wrap justify-center items-center max-w-[698px] w-full mx-auto lg:justify-between">
                     <div>
                       <h1 className="text-[#A9A9AE] text-[14px] leading-[21px] font-normal mb-2">Invoice To:</h1>
 
@@ -777,14 +717,14 @@ const handleSendInvoice = (): void => {
                 </div>
 
                 {/* Invoice Items Section */}
-                <div className="pt-16  max-w-[698px] w-full mx-auto">
-                  <div className="flex items-center gap-72 mb-4 font-semibold text-[#101828]">
+                <div className="pt-16 flex   flex-col  max-w-[698px] w-full mx-auto">
+                  <div className="flex flex-col lg:flex-row items-start pl-10 lg:pl-0  lg:items-center lg:gap-72 mb-4 font-semibold text-[#101828]">
                     <div className="text-[#A9A9AE] text-[14px] leading-[21px] font-medium">Item</div>
 
-                    <div className="flex gap-36">
+                    <div className="flex flex-col lg:flex-row  lg:gap-36">
                       <div className="text-[#A9A9AE] text-[14px] leading-[21px] font-medium">Cost</div>
 
-                      <div className="flex gap-16">
+                      <div className="flex flex-col lg:flex-row  lg:gap-16">
                         <div className="text-[#A9A9AE] text-[14px] leading-[21px] font-medium">Hours</div>
                         <div className="text-[#A9A9AE] text-[14px] leading-[21px] font-medium">Quantity</div>
                         <div></div>
@@ -792,7 +732,7 @@ const handleSendInvoice = (): void => {
                     </div>
                   </div>
                   {invoiceDetails.items.map((item, index) => (
-                    <div key={index} className="flex  items-center gap-10 mb-2 ">
+                    <div key={index} className="flex flex-col lg:flex-row items-center gap-10 mb-2 ">
                     {/* Item Dropdown */}
                     <Select 
                       value={item.item}
@@ -813,7 +753,7 @@ const handleSendInvoice = (): void => {
                       type="number"
                       placeholder="Cost"
                       value={item.cost}
-                      className="bg-[#F1F1F1] border-none max-w-[142px] w-full"
+                      className="bg-[#F1F1F1] border-none lg:max-w-[142px] w-[316px] lg:w-full"
                       onChange={(e) => handleItemChange(index, 'cost', e.target.value)}
                     />
           
@@ -822,7 +762,7 @@ const handleSendInvoice = (): void => {
                       type="number"
                       placeholder="Hours"
                       value={item.hours}
-                      className="bg-[#F1F1F1] border-none max-w-[70px] w-full"
+                      className="bg-[#F1F1F1] border-none w-[316px] lg:max-w-[70px] lg:w-full"
                       onChange={(e) => handleItemChange(index, 'hours', e.target.value)}
                     />
           
@@ -831,7 +771,7 @@ const handleSendInvoice = (): void => {
                       type="number"
                       placeholder="Quantity"
                       value={item.quantity}
-                      className="bg-[#F1F1F1] border-none max-w-[84px] w-full"
+                      className="bg-[#F1F1F1] border-none w-[316px] lg:max-w-[84px] lg:w-full"
                       onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
                     />
           
@@ -850,7 +790,7 @@ const handleSendInvoice = (): void => {
                 ))}
           
                 {/* Add Item Button */}
-                <div className="mt-8">
+                <div className="mt-8 pl-6 lg:pl-0">
                   <Button 
                     variant="outline" 
                     onClick={addNewItem}
@@ -861,7 +801,7 @@ const handleSendInvoice = (): void => {
                 </div>
 
                   {/* Total Calculation */}
-                  <div className="mt-10 border-b-[1px] border-[#F1F1F1] pb-10">
+                  <div className="mx-10 lg:mx-0 mt-10 border-b-[1px] border-[#F1F1F1] pb-10">
                     <div className="flex justify-between items-center  gap-4">
                       <span className="text-[14px] leading-[21px] text-[#A9A9AE] font-medium">Subtotal</span>
                       <span className="text-[16px] text-[#101828] leading-[24px] font-medium">
@@ -870,7 +810,7 @@ const handleSendInvoice = (): void => {
                     </div>
                   </div>
 
-                  <div className="mt-10 border-b-[1px] border-[#F1F1F1] pb-10">
+                  <div className="mx-10 lg:mx-0 mt-10 border-b-[1px] border-[#F1F1F1] pb-10">
                     <div className="flex justify-between items-center  gap-4">
                       <span className="text-[14px] leading-[21px] text-[#A9A9AE] font-medium">Discount</span>
                       <span className="text-[16px] text-[#101828] leading-[24px] font-medium">
@@ -879,7 +819,7 @@ const handleSendInvoice = (): void => {
                     </div>
                   </div>
 
-                  <div className="mt-10 border-b-[1px] border-[#F1F1F1] pb-10">
+                  <div className="mx-10 lg:mx-0 mt-10 border-b-[1px] border-[#F1F1F1] pb-10">
                     <div className="flex justify-between items-center  gap-4">
                       <span className="text-[14px] leading-[21px] text-[#A9A9AE] font-medium">VAT</span>
                       <span className="text-[16px] text-[#101828] leading-[24px] font-medium">
