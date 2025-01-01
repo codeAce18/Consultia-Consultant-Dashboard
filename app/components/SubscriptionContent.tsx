@@ -21,7 +21,6 @@ const SubscriptionContent: React.FC<SubscriptionContentProps> = ({ setActiveComp
     setIsModalVisible(!isModalVisible);
   };
 
-  const [isOverlayVisible, setIsOverlayVisible] = useState<boolean>(false);
 
 
 

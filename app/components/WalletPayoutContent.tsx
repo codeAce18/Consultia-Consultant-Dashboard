@@ -13,7 +13,6 @@ interface WalletPayoutContentProps {
 
 const WalletPayoutContent: React.FC<WalletPayoutContentProps> = ({ setActiveComponent }) => {
   const router = useRouter();
-  const [isOverlayVisible, setIsOverlayVisible] = useState<boolean>(false);
   const [withdrawalStage, setWithdrawalStage] = useState<'initial' | 'pin-creation' | 'withdrawal'>('initial');
   const [withdrawalAmount, setWithdrawalAmount] = useState<string>('');
   const [destinationBank, setDestinationBank] = useState<string>('');

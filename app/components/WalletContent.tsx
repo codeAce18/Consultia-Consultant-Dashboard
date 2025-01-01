@@ -19,7 +19,7 @@ interface WalletContentProps {
 const WalletContent: React.FC<WalletContentProps> = ({ setActiveComponent }) => {
     
     const [activeSection, setActiveSection] = useState('Wallet');
-    const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+
 
 
 

@@ -223,7 +223,6 @@ const DashboardContent: React.FC<DashboardContentProps> = ({ setActiveComponent 
   const handleViewAllClick = () => {
     setActiveComponent("Job Order Registry"); // Switch to JobOrderContent when clicked
   };
-  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
 
 
 

@@ -23,7 +23,6 @@ interface SettingsContentProps {
 }
 
 const SettingsContent = ({ setActiveComponent }: SettingsContentProps) => {
-    const [isOverlayVisible, setIsOverlayVisible] = useState(false);
     const [activeTab, setActiveTab] = useState('authentication');
 
 

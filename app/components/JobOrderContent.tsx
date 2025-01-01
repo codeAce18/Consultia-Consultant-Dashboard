@@ -20,7 +20,7 @@ interface JobOrderContentProps {
 }
 
 const JobOrderContent = ({ setActiveComponent }: JobOrderContentProps) => {
-  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+
 
 
   return (

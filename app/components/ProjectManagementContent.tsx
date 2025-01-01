@@ -89,7 +89,7 @@ type ProjectManagementContentProps = {
 const ProjectManagementContent: React.FC<ProjectManagementContentProps> = ({ setActiveComponent }) => {
   const [activeTab, setActiveTab] = useState<string>('All Projects');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [isOverlayVisible, setIsOverlayVisible] = useState<boolean>(false);
+
 
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 

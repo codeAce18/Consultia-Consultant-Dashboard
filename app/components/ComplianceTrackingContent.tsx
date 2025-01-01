@@ -210,7 +210,6 @@ interface ComplianceTrackingContentProps {
 
 const ComplianceTrackingContent: React.FC<ComplianceTrackingContentProps> = ({ setActiveComponent }) => {
   
-  const [isOverlayVisible, setIsOverlayVisible] = useState<boolean>(false);
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(25);
   const [dropdownState, setDropdownState] = useState<{ [key: number]: boolean }>({});
